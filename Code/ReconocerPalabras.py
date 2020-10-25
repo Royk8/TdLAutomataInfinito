@@ -1,4 +1,4 @@
-from AutomataTipo import AutomataTipo
+from Code.AutomataTipo import AutomataTipo
 
 
 linea = "int perico = cafe + leche"

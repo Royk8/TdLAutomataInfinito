@@ -1,5 +1,5 @@
 from Singleton import Simbols
-from AutomataInterface import AutomataInteface
+from Code.AutomataInterface import AutomataInteface
 
 
 class AutomataTipo(AutomataInteface):

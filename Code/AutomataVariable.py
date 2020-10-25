@@ -1,4 +1,4 @@
-from AutomataInterface import AutomataInteface
+from Code.AutomataInterface import AutomataInteface
 
 
 class AutomataVariable(AutomataInteface):
