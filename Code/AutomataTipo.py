@@ -1,4 +1,4 @@
-from Singleton import Simbols
+from Code.Singleton import Simbols
 from Code.AutomataInterface import AutomataInteface
 
 
@@ -23,8 +23,11 @@ class AutomataTipo(AutomataInteface):
     def getNumeroEstados(self):
         return self.numeroEstados
 
+    def getClase(self):
+        return "Tipo"
+
     def isActivo(self):
-        return not (self.error and self.estados[-1])
+        return not (self.error or self.estados[-1])
 
     def finLectura(self) -> bool:
         return self.estados[-1]
@@ -37,8 +40,9 @@ class AutomataTipo(AutomataInteface):
 
     def avError(self):
         if not self.error:
-            self.estados[self.actual] = False
-            self.actual = None
+            if self.actual is not None:
+                self.estados[self.actual] = False
+                self.actual = None
             self.error = True
 
     def actualizar(self):
@@ -60,23 +64,22 @@ class AutomataTipo(AutomataInteface):
                     self.actual += 1
                     self.actualizar()
                     return
-                if self.error:
-                    self.error = False
-                    self.actual = None
             #Si entra un simbolo valido
-            elif simbolo.lower() in simbolos.getSimbolos('alfanumericos'):
+            elif simbolo.lower() in simbolos.getAlfanumericos():
                 if self.actual is None:
                     if self.secuencia[0] == simbolo:
                         self.actual = 0
                         self.estados[self.actual] = True
-                elif self.actual <= self.numeroEstados - 2:
+                    else:
+                        self.avError()
+                elif self.actual < self.numeroEstados - 2:
                     if self.secuencia[self.actual + 1] == simbolo:
                         self.estados[self.actual] = False
                         self.actual += 1
                         self.estados[self.actual] = True
-                else:
-                    #Sino, error.
-                    self.avError()
+                    else:
+                        self.avError()
+
         else:
             if simbolo == ' ':
                 self.error = False

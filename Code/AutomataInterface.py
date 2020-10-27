@@ -11,3 +11,9 @@ class AutomataInteface:
 
     def reiniciar(self):
         pass
+
+    def getClase(self) -> str:
+        pass
+
+    def getSecuencia(self) -> str:
+        pass

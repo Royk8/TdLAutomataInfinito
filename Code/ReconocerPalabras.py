@@ -1,4 +1,6 @@
 from Code.AutomataTipo import AutomataTipo
+from Code.AutomataVariable import AutomataVariable
+from Code.Nodo import Nodo
 
 
 linea = "int perico = cafe + leche"
@@ -60,20 +62,22 @@ rFor = AutomataTipo('for')
 rWhile = AutomataTipo('while')
 rIf = AutomataTipo('if')
 rElse = AutomataTipo('else')
+aVariable = AutomataVariable()
 
-listaReservadas = [rString, rInt, rFloat, rDouble, rFor, rWhile, rIf, rElse]
+listaAutomatas = [rString, rInt, rFloat, rDouble, rFor, rWhile, rIf, rElse, aVariable]
 
 lecturas = []
 
 for letra in linea:
-    for rReservada in listaReservadas:
-        if rReservada.isActivo():
-            rReservada.leerSimbolo(letra)
-            if rReservada.finLectura():
+    for automata in listaAutomatas:
+        if automata.isActivo():
+            automata.leerSimbolo(letra)
+            if automata.finLectura():
                 #Trabajarle
-                lecturas.append(rReservada.secuencia)
-                for autotomata in listaReservadas:
-                    autotomata.reiniciar()
+                nodo = Nodo(automata.getClase(), automata.getSecuencia())
+                lecturas.append(nodo)
+                for i in listaAutomatas:
+                    i.reiniciar()
                 break
 """else:
     leido = None
@@ -82,6 +86,8 @@ for letra in linea:
             leido = rReservada
             break
     print("Lectura Terminada\nSe leyo: " + leido.getSecuencia())"""
-print(lecturas)
+print(len(lecturas))
+for objeto in lecturas:
+    print("[" + objeto.clase + " | " + objeto.valor + " ] ", end="")
 
 
