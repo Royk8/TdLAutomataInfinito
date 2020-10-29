@@ -6,39 +6,40 @@ class AutomataVariable(AutomataInteface):
 
     def __init__(self):
         self.secuencia = ""
-        self.leyendo = False
-        self.error = False
-        self.lecturaExitosa = False
+        self.estadoLectura = False
+        self.estadoError = False
+        self.estadoExito = False
 
     def leerSimbolo(self, simbolo: str):
-        if not self.error:
+        if not self.estadoError:
             simbolos = Simbols()
             simbolosLectura = simbolos.getAlfanumericos()
             simbolosFin = simbolos.getAritmeticos()
-            simbolosFin.append(simbolos.getAsignacion())
+            simbolosFin.extend(simbolos.getAsignacion())
+            simbolosFin.extend(simbolos.getLogicos())
             simbolosFin.append(" ")
-            if not self.leyendo and simbolo in simbolos.getNumericos():
-                self.error = True
+            if not self.estadoLectura and simbolo in simbolos.getNumericos():
+                self.estadoError = True
             elif simbolo in simbolosLectura:
                 self.secuencia += simbolo
-                self.leyendo = True
-            elif self.leyendo and simbolo in simbolosFin:
-                self.lecturaExitosa = True
+                self.estadoLectura = True
+            elif self.estadoLectura and simbolo in simbolosFin:
+                self.estadoExito = True
 
     def getSecuencia(self) -> str:
         return self.secuencia
 
     def isActivo(self) -> bool:
-        return not (self.error or self.lecturaExitosa)
+        return not (self.estadoError or self.estadoExito)
 
     def finLectura(self) -> bool:
-        return self.lecturaExitosa
+        return self.estadoExito
 
     def reiniciar(self):
         self.secuencia = ""
-        self.leyendo = False
-        self.error = False
-        self.lecturaExitosa = False
+        self.estadoLectura = False
+        self.estadoError = False
+        self.estadoExito = False
 
     def getClase(self):
         return "Variable"

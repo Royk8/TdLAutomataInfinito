@@ -19,6 +19,10 @@ class Simbols():
         self.modificadores = ['+=', '-=', '*=', '/=', '%=']
         self.aritmeticos = ['+', '-', '*', '/', '%']
         self.logicos = ['==', '!=', '<=', '>=', '|', '||', '&', '&&']
+        self.separadores = ","
+        self.finLinea = ";"
+        self.simbolosSimples = "=+-*/%!<>|&,();"
+        self.parentesis = ["()"]
 
     def getAlfanumericos(self):
         return self.alfanumerico
@@ -38,12 +42,20 @@ class Simbols():
     def getLogicos(self):
         return self.logicos
 
-    def getSimbolos(self, tipo):
-        if tipo == 'alfanumericos':
-            return self.getAlfanumericos()
-        elif tipo == 'asignacion':
-            return self.getAsignacion()
-        elif tipo == 'operadores':
-            return self.getOperadores()
-        elif tipo == 'modificadores':
-            return self.getModificadores()
+    def getSeparadores(self):
+        return self.separadores
+
+    def getSimbolosSimples(self):
+        return self.simbolosSimples
+
+    def getParentesis(self):
+        return self.parentesis
+
+    def getCaracteresEspeciales(self):
+        caracteres = []
+        caracteres.append(self.asignacion)
+        caracteres.append(self.modificadores)
+        caracteres.append(self.aritmeticos)
+        caracteres.append(self.logicos)
+        caracteres.append(self.separadores)
+        return caracteres

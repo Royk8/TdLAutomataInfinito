@@ -8,8 +8,8 @@ class AutomataTipo(AutomataInteface):
         self.secuencia = secuencia
         self.numeroEstados = len(secuencia) + 1
         self.estados = [False for i in range(self.numeroEstados)]
-        self.actual = None
-        self.error = False
+        self.estadoActual = None
+        self.estadoError = False
 
     def getEstados(self):
         return self.estados
@@ -18,7 +18,7 @@ class AutomataTipo(AutomataInteface):
         return self.secuencia
 
     def getActual(self):
-        return self.actual
+        return self.estadoActual
 
     def getNumeroEstados(self):
         return self.numeroEstados
@@ -27,23 +27,23 @@ class AutomataTipo(AutomataInteface):
         return "Tipo"
 
     def isActivo(self):
-        return not (self.error or self.estados[-1])
+        return not (self.estadoError or self.estados[-1])
 
     def finLectura(self) -> bool:
         return self.estados[-1]
 
     def reiniciar(self):
-        if self.actual is not None:
-            self.estados[self.actual] = False
-            self.actual = None
-        self.error = False
+        if self.estadoActual is not None:
+            self.estados[self.estadoActual] = False
+            self.estadoActual = None
+        self.estadoError = False
 
     def avError(self):
-        if not self.error:
-            if self.actual is not None:
-                self.estados[self.actual] = False
-                self.actual = None
-            self.error = True
+        if not self.estadoError:
+            if self.estadoActual is not None:
+                self.estados[self.estadoActual] = False
+                self.estadoActual = None
+            self.estadoError = True
 
     def actualizar(self):
         if self.estados[-1]:
@@ -56,33 +56,37 @@ class AutomataTipo(AutomataInteface):
                 break
 
     def leerSimbolo(self, simbolo: str):
-        if not self.error:
+        if not self.estadoError:
             simbolos = Simbols()
             #Si termina la palabra con un espacio
             if simbolo == " ":
                 if self.estados[-2]:
-                    self.actual += 1
+                    self.estadoActual += 1
                     self.actualizar()
                     return
+                else:
+                    self.avError()
             #Si entra un simbolo valido
             elif simbolo.lower() in simbolos.getAlfanumericos():
-                if self.actual is None:
+                if self.estadoActual is None:
                     if self.secuencia[0] == simbolo:
-                        self.actual = 0
-                        self.estados[self.actual] = True
+                        self.estadoActual = 0
+                        self.estados[self.estadoActual] = True
                     else:
                         self.avError()
-                elif self.actual < self.numeroEstados - 2:
-                    if self.secuencia[self.actual + 1] == simbolo:
-                        self.estados[self.actual] = False
-                        self.actual += 1
-                        self.estados[self.actual] = True
+                elif self.estadoActual < self.numeroEstados - 2:
+                    if self.secuencia[self.estadoActual + 1] == simbolo:
+                        self.estados[self.estadoActual] = False
+                        self.estadoActual += 1
+                        self.estados[self.estadoActual] = True
                     else:
                         self.avError()
-
+                else:
+                    self.avError()
+            del simbolos
         else:
             if simbolo == ' ':
-                self.error = False
+                self.estadoError = False
 
 
 

@@ -1,22 +1,5 @@
-def reconocerTipo(palabra):
-    if tipos.__contains__(palabra):
-        return True
-    return False
+from Code.Controller import Controller
 
-linea = "int perico = cafe + leche"
-separados = linea.split(' ')
-print(separados)
-tipos = ['int', 'double', 'string', 'float', 'boolean']
-print(reconocerTipo(separados[0]))
-
-
-
-
-
-"""
-int
-double
-string
-float
-boolean
-"""
+if __name__ == "__main__":
+    linea = "int casa = (0000.555f*17) ;"
+    Controller.reconocedor(linea)
