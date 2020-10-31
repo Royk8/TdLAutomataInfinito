@@ -14,6 +14,7 @@ def singleton(cls):
 class Simbols():
     def __init__(self):
         self.alfanumerico = 'abcdefghijklmnopqrstuvwxyz_1234567890'
+        self.alfabetico = 'abcdefghijklmnopqrstuvwxyz_'
         self.numericos = '0123456789'
         self.asignacion = ['=']
         self.modificadores = ['+=', '-=', '*=', '/=', '%=']
@@ -26,6 +27,9 @@ class Simbols():
 
     def getAlfanumericos(self):
         return self.alfanumerico
+
+    def getAlfabeticos(self):
+        return self.alfabetico
 
     def getNumericos(self):
         return self.numericos

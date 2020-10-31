@@ -18,24 +18,26 @@ class AutomataNumeros(AutomataInteface):
     def leerSimbolo(self, simbolo: str):
         simbolos = Simbols()
         if not self.estadoLeyendo:
-            if simbolo == "0":
-                self.estado = "0"
-                self.secuencia = "0"
-                self.estadoEnteroValido = True
-                self.estadoLeyendo = True
-            elif simbolo in simbolos.getNumericos():
-                self.estado = "entero"
-                self.secuencia = simbolo
-                self.estadoEnteroValido = True
-                self.estadoLeyendo = True
-            elif simbolo == ".":
-                self.estado = "punto solo"
-                self.secuencia = simbolo
-                self.estadoLeyendo = True
-            elif simbolo == simbolos.getAlfanumericos():
-                self.estadoError = True
-            elif simbolo == " " or simbolo in simbolos.getSimbolosSimples():
+            if simbolo == " " or simbolo in simbolos.getSimbolosSimples():
                 self.estadoError = False
+            elif simbolo in simbolos.getAlfabeticos():
+                self.estadoError = True
+            if not self.estadoError:
+                if simbolo == "0":
+                    self.estado = "0"
+                    self.secuencia = "0"
+                    self.estadoEnteroValido = True
+                    self.estadoLeyendo = True
+                elif simbolo in simbolos.getNumericos():
+                    self.estado = "entero"
+                    self.secuencia = simbolo
+                    self.estadoEnteroValido = True
+                    self.estadoLeyendo = True
+                elif simbolo == ".":
+                    self.estado = "punto solo"
+                    self.secuencia = simbolo
+                    self.estadoLeyendo = True
+
         else:
             if self.estado == "0":
                 if simbolo == "0":
@@ -58,6 +60,8 @@ class AutomataNumeros(AutomataInteface):
                     self.estado = "entero"
                     self.self.estadoEnteroValido = True
                     self.estadoExito = True
+                else:
+                    self.reiniciar()
             elif self.estado == "entero":
                 if simbolo in simbolos.getNumericos():
                     self.secuencia += simbolo
@@ -74,6 +78,8 @@ class AutomataNumeros(AutomataInteface):
                 elif simbolo == " " or simbolo in simbolos.getSimbolosSimples():
                     self.estadoEnteroValido = True
                     self.estadoExito = True
+                else:
+                    self.reiniciar()
             elif self.estado == "punto solo":
                 if simbolo == "0":
                     self.estado = "0.0"
@@ -83,7 +89,7 @@ class AutomataNumeros(AutomataInteface):
                     self.estado = "decimal"
                     self.estadoDoubleValido = True
                 else:
-                    self.estadoError = True
+                    self.reiniciar()
             elif self.estado == "0.":
                 if simbolo == "0":
                     self.estado = "0.0"
@@ -99,7 +105,7 @@ class AutomataNumeros(AutomataInteface):
                     self.estadoLeyendo = False
                     self.estadoExito = True
                 else:
-                    self.estadoError = True
+                    self.reiniciar()
             elif self.estado == "entero y .":
                 if simbolo == "0":
                     self.secuencia += "0"
@@ -112,7 +118,7 @@ class AutomataNumeros(AutomataInteface):
                     self.estadoLeyendo = False
                     self.estadoExito = True
                 else:
-                    self.estadoError = True
+                    self.reiniciar()
             elif self.estado == "0.0":
                 if simbolo == "0":
                     self.secuencia += simbolo
@@ -128,7 +134,7 @@ class AutomataNumeros(AutomataInteface):
                     self.estadoLeyendo = False
                     self.estadoExito = True
                 else:
-                    self.estadoError = True
+                    self.reiniciar()
             elif self.estado == "decimal":
                 if simbolo == "0":
                     self.secuencia += simbolo
@@ -144,7 +150,7 @@ class AutomataNumeros(AutomataInteface):
                     self.estadoLeyendo = False
                     self.estadoExito = True
                 else:
-                    self.estadoError
+                    self.reiniciar()
             elif self.estado == "entero .0":
                 if simbolo == "0":
                     self.secuencia += "0"
@@ -160,7 +166,7 @@ class AutomataNumeros(AutomataInteface):
                     self.estadoDoubleValido = False
                     self.estadoFloatValido = True
                 else:
-                    self.estadoError = True
+                    self.reiniciar()
             elif self.estado == "decimal y 0":
                 if simbolo == "0":
                     self.secuencia += simbolo
@@ -176,19 +182,22 @@ class AutomataNumeros(AutomataInteface):
                     self.estadoLeyendo = False
                     self.estadoExito = True
                 else:
-                    self.estadoError = True
+                    self.reiniciar()
             elif self.estado == "floatConfirmado" or self.estado == "float .0":
                 if simbolo == " " or simbolo in simbolos.getSimbolosSimples():
                     self.estadoLeyendo = False
                     self.estadoExito = True
                 else:
-                    self.estadoError = True
+                    self.reiniciar()
 
     def isActivo(self) -> bool:
         return not self.estadoError
 
     def finLectura(self) -> bool:
         return self.estadoExito
+
+    def avError(self):
+        pass
 
     def reiniciar(self):
         self.secuencia = ""

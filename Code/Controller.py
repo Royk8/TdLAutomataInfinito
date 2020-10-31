@@ -66,7 +66,8 @@ class Controller:
         rElse = AutomataTipo('else')
         aVariable = AutomataVariable()
 
-        listaPalabras = [rString, rInt, rFloat, rDouble, rBooblean, rFor, rWhile, rIf, rElse, aVariable]
+        #listaPalabras = [rString, rInt, rFloat, rDouble, rBooblean, rFor, rWhile, rIf, rElse, aVariable]
+        listaPalabras = [rInt, aVariable]
 
         """cComa = AutomataSimbolo(",")
         cMasIgual = AutomataSimbolo("+=")
@@ -88,7 +89,8 @@ class Controller:
                     if automata.finLectura():
                         # Trabajarle
                         nodo = Nodo(automata.getClase(), automata.getSecuencia())
-                        lecturas.append(nodo)
+                        if nodo.valor != "":
+                            lecturas.append(nodo)
                         for i in listaPalabras:
                             i.reiniciar()
                         break
@@ -96,7 +98,8 @@ class Controller:
             if cSimbolos.finLectura():
                 nodoCaracter = Nodo(cSimbolos.getClase(), cSimbolos.getSecuencia())
                 lecturas.append(nodoCaracter)
-                cSimbolos.reiniciar()
+                if not cSimbolos.isReading():
+                    cSimbolos.reiniciar()
             numeros.leerSimbolo(simbolo)
             if numeros.finLectura():
                 nodoNumeros = Nodo(numeros.getClase(), numeros.getSecuencia())
