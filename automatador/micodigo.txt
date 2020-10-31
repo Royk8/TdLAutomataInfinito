@@ -1,0 +1,7 @@
+int a ,b,c ;
+string x='pato',y='perro', z ='gato';
+string b =(a*5)&&True ;
+My_nUmber_b -= b ;
+n = "Textodeejemplo";
+n+= 3 ;
+a = a+-b ;
