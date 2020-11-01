@@ -67,7 +67,8 @@ def getReg():
     except:
         messagebox.showinfo("Error", "No ha iniciado automatador")
 
-
+def salir():
+    exit()
 # Ventana
 ventana = Tk()
 ventana.title('Automatador')
@@ -83,7 +84,7 @@ mensaje.grid(row=0, column=0, columnspan=4, padx=5, pady=5)
 # Botones
 boton_archivo = Button(ventana, text='Escojer un archivo',
                        width=15, height=2, command=browseFile)
-boton_salida = Button(ventana, text='Salir', width=15, height=2, command=exit)
+boton_salida = Button(ventana, text='Salir', width=15, height=2, command=salir)
 boton_proceso = Button(ventana, text='Iniciar automata',
                        width=15, height=2, command=analizador)
 boton_reg = Button(ventana, text='Registro',

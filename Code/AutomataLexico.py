@@ -3,7 +3,7 @@ from Code.Nodo import Nodo
 
 class AutomataLexico:
 
-    def cambiarEstado(self,cambio):
+    def cambiarEstado(self, cambio):
 
         # Estado inicial, cuando comienza la linea.
         def estado0(nodo:Nodo):
@@ -453,10 +453,5 @@ class AutomataLexico:
         self.funcionEstado = self.cambiarEstado(0)
         self.mensajeError = ""
 
-
-auto = AutomataLexico()
-nodo = Nodo("Tipo","int")
-auto.funcionEstado(nodo)
-auto.funcionEstado(nodo)
 
 
