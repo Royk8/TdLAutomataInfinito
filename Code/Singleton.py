@@ -13,8 +13,8 @@ def singleton(cls):
 @singleton
 class Simbols():
     def __init__(self):
-        self.alfanumerico = 'abcdefghijklmnopqrstuvwxyz_1234567890'
-        self.alfabetico = 'abcdefghijklmnopqrstuvwxyz_'
+        self.alfanumerico = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ_1234567890'
+        self.alfabetico = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ_'
         self.numericos = '0123456789'
         self.asignacion = ['=']
         self.modificadores = ['+=', '-=', '*=', '/=', '%=']

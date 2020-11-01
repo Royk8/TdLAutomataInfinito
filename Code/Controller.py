@@ -1,8 +1,10 @@
-from Code.AutomataTipo import AutomataTipo
+from Code.AutomataReservada import AutomataReservada
 from Code.AutomataVariable import AutomataVariable
 from Code.AutomataSimbolo import AutomataSimbolo
 from Code.AutomataSimbolos import AutomataSimbolos
 from Code.AutomataNumeros import AutomataNumeros
+from Code.AutomataReservadaTipo import AutomataReservadaTipo
+from Code.AutomataReservadaBool import AutomataReservadaBool
 from Code.Singleton import Simbols
 from Code.Nodo import Nodo
 
@@ -55,19 +57,20 @@ class Controller:
 
         simbolos = Simbols
 
-        rString = AutomataTipo('String')
-        rInt = AutomataTipo('int')
-        rFloat = AutomataTipo('float')
-        rDouble = AutomataTipo('double')
-        rBooblean = AutomataTipo('boolean')
-        rFor = AutomataTipo('for')
-        rWhile = AutomataTipo('while')
-        rIf = AutomataTipo('if')
-        rElse = AutomataTipo('else')
+        rString = AutomataReservadaTipo('String')
+        rInt = AutomataReservadaTipo('int')
+        rFloat = AutomataReservadaTipo('float')
+        rDouble = AutomataReservadaTipo('double')
+        rBooblean = AutomataReservadaTipo('boolean')
+        rFor = AutomataReservada('for')
+        rWhile = AutomataReservada('while')
+        rIf = AutomataReservada('if')
+        rElse = AutomataReservada('else')
+        rTrue = AutomataReservadaBool('True')
+        rFalse = AutomataReservadaBool('False')
         aVariable = AutomataVariable()
 
-        #listaPalabras = [rString, rInt, rFloat, rDouble, rBooblean, rFor, rWhile, rIf, rElse, aVariable]
-        listaPalabras = [rInt, aVariable]
+        listaPalabras = [rString, rInt, rFloat, rDouble, rBooblean, rFor, rWhile, rIf, rElse, rTrue, rFalse, aVariable]
 
         """cComa = AutomataSimbolo(",")
         cMasIgual = AutomataSimbolo("+=")
@@ -84,16 +87,14 @@ class Controller:
         siguiente = False
         for simbolo in linea:
             for automata in listaPalabras:
-                if automata.isActivo():
-                    automata.leerSimbolo(simbolo)
-                    if automata.finLectura():
-                        # Trabajarle
-                        nodo = Nodo(automata.getClase(), automata.getSecuencia())
-                        if nodo.valor != "":
-                            lecturas.append(nodo)
-                        for i in listaPalabras:
-                            i.reiniciar()
-                        break
+                automata.leerSimbolo(simbolo)
+                if automata.finLectura():
+                    nodo = Nodo(automata.getClase(), automata.getSecuencia())
+                    if nodo.valor != "":
+                        lecturas.append(nodo)
+                    for i in listaPalabras:
+                        i.reiniciar()
+                    break
             cSimbolos.leerSimbolo(simbolo)
             if cSimbolos.finLectura():
                 nodoCaracter = Nodo(cSimbolos.getClase(), cSimbolos.getSecuencia())

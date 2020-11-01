@@ -2,7 +2,7 @@ from Code.Singleton import Simbols
 from Code.AutomataInterface import AutomataInteface
 
 
-class AutomataTipo(AutomataInteface):
+class AutomataReservada(AutomataInteface):
 
     def __init__(self, secuencia):
         self.secuencia = secuencia
@@ -24,7 +24,7 @@ class AutomataTipo(AutomataInteface):
         return self.numeroEstados
 
     def getClase(self):
-        return "Tipo"
+        return "Reservada"
 
     def isActivo(self):
         return not (self.estadoError or self.estados[-1])
@@ -43,7 +43,7 @@ class AutomataTipo(AutomataInteface):
             if self.estadoActual is not None:
                 self.estados[self.estadoActual] = False
                 self.estadoActual = None
-            self.estadoError = True
+                self.estadoError = True
 
     def actualizar(self):
         if self.estados[-1]:
