@@ -75,7 +75,6 @@ class Controller:
         lecturas = []
         linea = linea.replace("\n","")
         linea += " "
-        print(type(linea))
         for simbolo in linea:
             for automata in listaPalabras:
                 automata.leerSimbolo(simbolo)
