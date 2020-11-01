@@ -24,14 +24,39 @@ def browseFile():
 def analizador():
     try:
         global text2
+        global text3
         text2 = ''
+        text3 = ''
+        contador = 0
         for line in text:
-            text2 += Controller.reconocedor(line)
+            controlador = Controller()
+            controlador.reconocedor(line)
+            for nodo in controlador.lecturas:
+                text2+= "[" + str(nodo.clase) + " | " + str(nodo.valor) + " ] "
+            text2 += "\n"
+            evaluacion = controlador.evaluador()
+            if evaluacion[0]:
+                textico = ''
+                for i in range(evaluacion[0]):
+                    nodo = controlador.lecturas[i]
+                    textico += nodo.valor + " "
+                textico += "\n"
+                for i in range(len(textico)):
+                    textico += " "
+                else:
+                    textico += "^ ERROR: "
+                text3 += textico
+                text3 += evaluacion[1] + "\n"
+            contador += 1
 
         text2 = text2.split('\n')
         lbox2.delete(0, 'end')
         for i in range(len(text2)):
             lbox2.insert(i+1, str(i+1)+'  '+text2[i])
+        text3 = text3.split('\n')
+        lbox3.delete(0, 'end')
+        for i in range(len(text3)):
+            lbox3.insert(i+1, str(i+1)+'  '+text3[i])
     except:
         messagebox.showinfo("Error", "No selecciono ningun archivo")
 
@@ -47,7 +72,7 @@ def getReg():
 ventana = Tk()
 ventana.title('Automatador')
 ventana.config(background="#353535")
-ventana.attributes('-zoomed', True)
+#ventana.attributes('-zoomed', True)
 
 # Entrada de texto
 mensaje = Label(ventana, text="Escoja un archivo o abrase", fg="blue")

@@ -1,59 +1,18 @@
 from Code.AutomataReservada import AutomataReservada
 from Code.AutomataVariable import AutomataVariable
-from Code.AutomataSimbolo import AutomataSimbolo
 from Code.AutomataSimbolos import AutomataSimbolos
 from Code.AutomataNumeros import AutomataNumeros
 from Code.AutomataReservadaTipo import AutomataReservadaTipo
 from Code.AutomataReservadaBool import AutomataReservadaBool
-from Code.Singleton import Simbols
+from Code.AutomataLexico import AutomataLexico
 from Code.Nodo import Nodo
-
-
-"""
-Tipo
-Variable
-iVariable
-Operadores
-"""
-"""automata = Automata("String")
-automata.leerSimbolo('S')
-print(automata.getEstados())
-automata.leerSimbolo(' ')
-print(automata.getEstados())
-automata.leerSimbolo('S')
-print(automata.getEstados())
-automata.leerSimbolo('t')
-print(automata.getEstados())
-automata.leerSimbolo('r')
-print(automata.getEstados())
-automata.leerSimbolo('i')
-print(automata.getEstados())
-automata.leerSimbolo('n')
-print(automata.getEstados())
-automata.leerSimbolo('g')
-print(automata.getEstados())
-automata.leerSimbolo(' ')
-
-print(automata.getEstados())"""
-
-
-def iniciarEstados():
-    estados = {'String': 's0',
-               'int': 'i0',
-               'float': 'f0',
-               'double': 'd0',
-               'boolean': 'b0',
-               'for': 'f0',
-               'if': 'i0',
-               'else': 'e0',
-               'while': 'w0',
-               'variable': 'v0'}
-    return estados
-
 
 class Controller:
 
-    def reconocedor(linea):
+    def __init__(self):
+        self.lecturas = []
+
+    def reconocedor(self, linea):
 
         rString = AutomataReservadaTipo('String')
         rInt = AutomataReservadaTipo('int')
@@ -73,7 +32,7 @@ class Controller:
         cSimbolos = AutomataSimbolos()
         numeros = AutomataNumeros()
 
-        lecturas = []
+        self.lecturas = []
         linea = linea.replace("\n", "")
         linea += " "
         for simbolo in linea:
@@ -82,7 +41,7 @@ class Controller:
                 if automata.finLectura():
                     nodo = Nodo(automata.getClase(), automata.getSecuencia())
                     if nodo.valor != "":
-                        lecturas.append(nodo)
+                        self.lecturas.append(nodo)
                     for i in listaPalabras:
                         i.reiniciar()
                     break
@@ -90,18 +49,28 @@ class Controller:
             if cSimbolos.finLectura():
                 nodoCaracter = Nodo(cSimbolos.getClase(),
                                     cSimbolos.getSecuencia())
-                lecturas.append(nodoCaracter)
+                self.lecturas.append(nodoCaracter)
                 if not cSimbolos.isReading():
                     cSimbolos.reiniciar()
             numeros.leerSimbolo(simbolo)
             if numeros.finLectura():
                 nodoNumeros = Nodo(numeros.getClase(), numeros.getSecuencia())
-                lecturas.append(nodoNumeros)
+                self.lecturas.append(nodoNumeros)
                 numeros.reiniciar()
-        #print(len(lecturas))
 
+    def evaluador(self):
+        automataEvaluador = AutomataLexico()
+        nodoError = 0
+        for i in range(len(self.lecturas)):
+            automataEvaluador.funcionEstado(self.lecturas[i])
+            if automataEvaluador.mensajeError:
+                nodoError = i
+                break
+        return nodoError, automataEvaluador.mensajeError
+
+    def getLecturas(self):
         retornador = ''
-        for objeto in lecturas:
+        for objeto in self.lecturas:
             retornador += "[" + str(objeto.clase) + \
                 " | " + str(objeto.valor) + " ] "
         retornador += ("\n")
