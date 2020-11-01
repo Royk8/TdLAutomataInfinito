@@ -1,5 +1,6 @@
 from tkinter import *
 from tkinter import filedialog
+from Code.Controller import Controller
 
 
 def browseFile():
@@ -8,13 +9,14 @@ def browseFile():
     global text
     texto1.configure(text="Archivo Seleccionado: "+filename)
     text = list(open(filename, 'r'))
-    text = [i[:-1] for i in text]
     for i in range(len(text)):
         lbox.insert(i+1, text[i])
 
 
 def analizador():
-    print(text)
+    for line in text:
+        print(line)
+        Controller.reconocedor(line)
     None
 
 
