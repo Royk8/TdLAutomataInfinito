@@ -67,7 +67,7 @@ class AutomataReservada(AutomataInteface):
                 else:
                     self.avError()
             #Si entra un simbolo valido
-            elif simbolo.lower() in simbolos.getAlfanumericos():
+            elif simbolo in simbolos.getAlfanumericos():
                 if self.estadoActual is None:
                     if self.secuencia[0] == simbolo:
                         self.estadoActual = 0

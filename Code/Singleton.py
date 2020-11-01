@@ -20,10 +20,11 @@ class Simbols():
         self.modificadores = ['+=', '-=', '*=', '/=', '%=']
         self.aritmeticos = ['+', '-', '*', '/', '%']
         self.logicos = ['==', '!=', '<=', '>=', '|', '||', '&', '&&']
-        self.separadores = ","
-        self.finLinea = ";"
-        self.simbolosSimples = "=+-*/%!<>|&,();"
-        self.parentesis = ["()"]
+        self.separadores = ','
+        self.finLinea = ';'
+        self.simbolosSimples = '=+-*/%!<>|&,();"'
+        self.parentesis = ['()']
+        self.comilla = '"'
 
     def getAlfanumericos(self):
         return self.alfanumerico
@@ -54,6 +55,9 @@ class Simbols():
 
     def getParentesis(self):
         return self.parentesis
+
+    def getComillas(self):
+        return self.comilla
 
     def getCaracteresEspeciales(self):
         caracteres = []

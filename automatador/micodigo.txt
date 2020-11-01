@@ -1,7 +1,11 @@
-int a ,b,c ;
-string x='pato',y='perro', z ='gato';
-string b =(a*5)&&True ;
-My_nUmber_b -= b ;
+String b;
+int a , b , c ;
+float b = 2.7f;
+
+String x = "pato", z ="gato";
+boolean c=True, d=false, x;
+String b = (a*5) && true;
 n = "Textodeejemplo";
-n+= 3 ;
 a = a+-b ;
+My_nUmber_b -= b ;
+n += (3-7*b) ;

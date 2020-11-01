@@ -55,8 +55,6 @@ class Controller:
 
     def reconocedor(linea):
 
-        simbolos = Simbols
-
         rString = AutomataReservadaTipo('String')
         rInt = AutomataReservadaTipo('int')
         rFloat = AutomataReservadaTipo('float')
@@ -66,25 +64,18 @@ class Controller:
         rWhile = AutomataReservada('while')
         rIf = AutomataReservada('if')
         rElse = AutomataReservada('else')
-        rTrue = AutomataReservadaBool('True')
-        rFalse = AutomataReservadaBool('False')
+        rTrue = AutomataReservadaBool('true')
+        rFalse = AutomataReservadaBool('false')
         aVariable = AutomataVariable()
 
         listaPalabras = [rString, rInt, rFloat, rDouble, rBooblean, rFor, rWhile, rIf, rElse, rTrue, rFalse, aVariable]
-
-        """cComa = AutomataSimbolo(",")
-        cMasIgual = AutomataSimbolo("+=")
-        cMenos = AutomataSimbolo("-")
-        cIgual = AutomataSimbolo("=")
-        cIgualIgual = AutomataSimbolo("==")
-        cDiferente = AutomataSimbolo("!=")
-        listaCaracteres = [cComa, cMasIgual, cMenos, cIgual, cIgualIgual, cDiferente]"""
         cSimbolos = AutomataSimbolos()
         numeros = AutomataNumeros()
 
         lecturas = []
+        linea = linea.replace("\n","")
         linea += " "
-        siguiente = False
+        print(type(linea))
         for simbolo in linea:
             for automata in listaPalabras:
                 automata.leerSimbolo(simbolo)
@@ -110,3 +101,4 @@ class Controller:
 
         for objeto in lecturas:
             print("[" + str(objeto.clase) + " | " + str(objeto.valor) + " ] ", end="")
+        print("\n+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++")

@@ -21,7 +21,7 @@ class AutomataSimbolos(AutomataInteface):
                 self.estadoExito = True
                 self.estadoLectura = False
             else:
-                if self.estado in "()":
+                if self.estado in '"()':
                     self.estadoSolapado = True
                     self.primerSimbolo(simbolo)
                     return
@@ -42,6 +42,9 @@ class AutomataSimbolos(AutomataInteface):
                 elif simbolo == "&" and self.estado == "&":
                     self.secuencia += "&"
                 elif simbolo in "(":
+                    self.estadoSolapado = True
+                    self.primerSimbolo(simbolo)
+                elif simbolo == '"':
                     self.estadoSolapado = True
                     self.primerSimbolo(simbolo)
                 else:
@@ -69,6 +72,8 @@ class AutomataSimbolos(AutomataInteface):
             self.estado = "("
         elif simbolo in ")":
             self.estado = ")"
+        elif simbolo == '"':
+            self.estado = '"'
         self.estadoLectura = True
         self.estadoExito = False
         if self.estadoSolapado:
@@ -107,12 +112,14 @@ class AutomataSimbolos(AutomataInteface):
             return "Operador Logico"
         elif secuenciaAEntregar in simbolos.getAritmeticos():
             return "Operador Aritmetico"
-        elif secuenciaAEntregar in ["++", "--"]:
+        elif secuenciaAEntregar in ['++', '--']:
             return "Suma/Resta 1"
-        elif secuenciaAEntregar in "()":
+        elif secuenciaAEntregar in '()':
             return "Parentesis"
-        elif secuenciaAEntregar == ";":
+        elif secuenciaAEntregar == ';':
             return "Fin de linea"
+        elif secuenciaAEntregar == simbolos.getComillas():
+            return "Comillas"
         return None
 
     def getSecuencia(self) -> str:

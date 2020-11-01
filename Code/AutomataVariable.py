@@ -15,9 +15,12 @@ class AutomataVariable(AutomataInteface):
     def leerSimbolo(self, simbolo: str):
         simbolos = Simbols()
         simbolosLectura = simbolos.getAlfanumericos()
-        simbolosFin = simbolos.getAritmeticos()
+        simbolosFin = []
+        simbolosFin.extend(simbolos.getAritmeticos())
         simbolosFin.extend(simbolos.getAsignacion())
         simbolosFin.extend(simbolos.getLogicos())
+        simbolosFin.extend(simbolos.getComillas())
+        simbolosFin.extend(simbolos.getSeparadores())
         simbolosFin.append(" ")
         if not self.estadoError:
             if not self.estadoLectura and simbolo in simbolos.getNumericos():
