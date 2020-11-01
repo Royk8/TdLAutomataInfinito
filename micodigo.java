@@ -1,7 +1,6 @@
 String b;
 int a , b , c ;
 float b = 2.7f;
-
 String x = "pato", z ="gato";
 boolean c=True, d=false, x;
 String b = (a*5) && true;

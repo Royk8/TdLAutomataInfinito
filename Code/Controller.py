@@ -9,8 +9,6 @@ from Code.Singleton import Simbols
 from Code.Nodo import Nodo
 
 
-
-
 """
 Tipo
 Variable
@@ -37,6 +35,8 @@ print(automata.getEstados())
 automata.leerSimbolo(' ')
 
 print(automata.getEstados())"""
+
+
 def iniciarEstados():
     estados = {'String': 's0',
                'int': 'i0',
@@ -68,12 +68,13 @@ class Controller:
         rFalse = AutomataReservadaBool('false')
         aVariable = AutomataVariable()
 
-        listaPalabras = [rString, rInt, rFloat, rDouble, rBooblean, rFor, rWhile, rIf, rElse, rTrue, rFalse, aVariable]
+        listaPalabras = [rString, rInt, rFloat, rDouble, rBooblean,
+                         rFor, rWhile, rIf, rElse, rTrue, rFalse, aVariable]
         cSimbolos = AutomataSimbolos()
         numeros = AutomataNumeros()
 
         lecturas = []
-        linea = linea.replace("\n","")
+        linea = linea.replace("\n", "")
         linea += " "
         for simbolo in linea:
             for automata in listaPalabras:
@@ -87,7 +88,8 @@ class Controller:
                     break
             cSimbolos.leerSimbolo(simbolo)
             if cSimbolos.finLectura():
-                nodoCaracter = Nodo(cSimbolos.getClase(), cSimbolos.getSecuencia())
+                nodoCaracter = Nodo(cSimbolos.getClase(),
+                                    cSimbolos.getSecuencia())
                 lecturas.append(nodoCaracter)
                 if not cSimbolos.isReading():
                     cSimbolos.reiniciar()
@@ -96,8 +98,11 @@ class Controller:
                 nodoNumeros = Nodo(numeros.getClase(), numeros.getSecuencia())
                 lecturas.append(nodoNumeros)
                 numeros.reiniciar()
-        print(len(lecturas))
+        #print(len(lecturas))
 
+        retornador = ''
         for objeto in lecturas:
-            print("[" + str(objeto.clase) + " | " + str(objeto.valor) + " ] ", end="")
-        print("\n+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++")
+            retornador += "[" + str(objeto.clase) + \
+                " | " + str(objeto.valor) + " ] "
+        retornador += ("\n")
+        return retornador
