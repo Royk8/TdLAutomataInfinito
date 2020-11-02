@@ -190,7 +190,8 @@ class AutomataLexico:
         # Estado para la secuencia V = "
         def estado11(nodo: Nodo):
             clase = nodo.clase
-            if clase == '"':
+            self.quotation = True
+            if clase == 'Comillas':
                 self.funcionEstado = self.cambiarEstado(18)
 
         # Estado para la secuencia Tipo Variable, Variable
@@ -254,7 +255,8 @@ class AutomataLexico:
         # Estado para la secuencia Tipo Variable = "
         def estado15(nodo: Nodo):
             clase = nodo.clase
-            if clase == '"':
+            self.quotation = True
+            if clase == 'Comillas':
                 self.funcionEstado = self.cambiarEstado(21)
 
         # Estado para secuencia Variable = Variable Operador (logico o aritmetico)
@@ -288,6 +290,7 @@ class AutomataLexico:
         # Estado para secuencia Variable = "cualquier cadena de texto"
         def estado18(nodo: Nodo):
             clase = nodo.clase
+            self.quotation = False
             if clase in ['Tipo', 'Reservada']:
                 self.funcionEstado = self.cambiarEstado(35)
             elif clase in ['Variable', 'int', 'double', 'float', 'boolean', 'String']:
@@ -333,6 +336,7 @@ class AutomataLexico:
         # Estado para la secuencia Tipo Variable = "cadena de texto"
         def estado21(nodo: Nodo):
             clase = nodo.clase
+            self.quotation = False
             if clase in ['Tipo', 'Reservada']:
                 self.funcionEstado = self.cambiarEstado(35)
             elif clase in ['Variable', 'int', 'double', 'float', 'boolean', 'String']:
@@ -349,38 +353,49 @@ class AutomataLexico:
                 self.funcionEstado = self.cambiarEstado(40)
 
         def estado31(nodo: Nodo):
+            self.finished = True
             self.mensajeError = "Not a statement"
 
         def estado32(nodo: Nodo):
+            self.finished = True
             self.mensajeError = "Unexpected token"
 
         def estado33(nodo: Nodo):
+            self.finished = True
             self.mensajeError = "Unnecesary semi-colon"
 
         def estado34(nodo: Nodo):
+            self.finished = True
             self.mensajeError = "Identifier expected"
 
         def estado35(nodo: Nodo):
+            self.finished = True
             self.mensajeError = "Reserved word"
 
         def estado36(nodo: Nodo):
+            self.finished = True
             self.mensajeError = "Expresion expected"
 
         def estado37(nodo: Nodo):
+            self.finished = True
             self.mensajeError = "Semicolon expected"
 
         def estado38(nodo: Nodo):
+            self.finished = True
             self.mensajeError = "Variable expected"
 
         def estado39(nodo: Nodo):
+            self.finished = True
             self.mensajeError = 'Missing "'
 
         def estado40(nodo: Nodo):
+            self.finished = True
             self.mensajeError = 'Invalid variable'
 
+        # Estado de exito
         def estado100(nodo: Nodo):
-            clase = nodo.clase
-
+            self.finished = True
+            """Si llegaste aqui coronaste"""
 
         if cambio == 0:
             return estado0
@@ -452,6 +467,13 @@ class AutomataLexico:
     def __init__(self):
         self.funcionEstado = self.cambiarEstado(0)
         self.mensajeError = ""
+        self.quotation = False
+        self.finished = False
 
+    def getMensajeError(self):
+        return self.mensajeError
+
+    def isFinished(self):
+        return self.finished
 
 

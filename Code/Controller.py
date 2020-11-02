@@ -61,12 +61,17 @@ class Controller:
     def evaluador(self):
         automataEvaluador = AutomataLexico()
         nodoError = 0
+        mensaje = ''
         for i in range(len(self.lecturas)):
             automataEvaluador.funcionEstado(self.lecturas[i])
-            if automataEvaluador.mensajeError:
+            if automataEvaluador.isFinished():
                 nodoError = i
+                mensaje = automataEvaluador.getMensajeError()
                 break
-        return nodoError, automataEvaluador.mensajeError
+        if automataEvaluador.quotation:
+            mensaje = 'Quotation never closed'
+            nodoError = len(self.lecturas)
+        return nodoError, mensaje
 
     def getLecturas(self):
         retornador = ''

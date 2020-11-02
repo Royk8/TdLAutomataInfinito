@@ -4,6 +4,11 @@ from tkinter import messagebox
 from Code.Controller import Controller
 from datetime import datetime
 
+## Welcome to the Automatador
+# Por Juan Cardona Y Roy Maestre
+# 2020 - 1 Teoria de Lenguajes
+# Vale por bono para el parcial
+
 dt_string = datetime.now().strftime("_%d_%m_%Y_%H_%M_%S")
 reg = open('./reg/reg'+str(dt_string)+'.txt', 'w')
 
@@ -68,7 +73,7 @@ def analizador():
         lbox3.delete(0, 'end')
 
         for i in range(len(text3)):
-            lbox3.insert(i+1, str(i+1)+'  '+text3[i])
+            lbox3.insert(i+1, '  '+text3[i])
             reg.write(str(i+1)+'  '+text3[i]+'\n')
         reg.write('\n')
 
@@ -103,7 +108,7 @@ boton_archivo = Button(ventana, text='Escojer un archivo',
 boton_proceso = Button(ventana, text='Iniciar automata',
                        width=15, height=2, command=analizador)
 boton_reg = Button(ventana, text='Generar registro y salir',
-                   width=15, height=2, command=getReg)
+                   width=18, height=2, command=getReg)
 
 # Posición de botones
 boton_archivo.grid(row=1, column=0, padx=7, pady=5)
