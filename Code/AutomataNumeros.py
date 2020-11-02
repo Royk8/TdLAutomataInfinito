@@ -2,6 +2,7 @@ from Code.AutomataInterface import AutomataInteface
 from Code.Singleton import Simbols
 
 
+# Automata que identifica la integridad de las cadenas de numeros
 class AutomataNumeros(AutomataInteface):
 
     def __init__(self):
@@ -13,7 +14,6 @@ class AutomataNumeros(AutomataInteface):
         self.estadoDoubleValido = False
         self.estadoError = False
         self.estadoExito = False
-
 
     def leerSimbolo(self, simbolo: str):
         simbolos = Simbols()

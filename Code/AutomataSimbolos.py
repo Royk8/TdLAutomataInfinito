@@ -2,6 +2,7 @@ from Code.AutomataInterface import AutomataInteface
 from Code.Singleton import Simbols
 
 
+# Automata que reconocer simbolos especiales
 class AutomataSimbolos(AutomataInteface):
 
     def __init__(self):

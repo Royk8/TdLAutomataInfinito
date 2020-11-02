@@ -7,13 +7,16 @@ from Code.AutomataReservadaBool import AutomataReservadaBool
 from Code.AutomataLexico import AutomataLexico
 from Code.Nodo import Nodo
 
+
 class Controller:
 
     def __init__(self):
         self.lecturas = []
 
+    # Reconoce palabras en las lineas del texto
     def reconocedor(self, linea):
 
+        # Se instancian automatas de reconocimiento de palabras reservadas y variables
         rString = AutomataReservadaTipo('String')
         rInt = AutomataReservadaTipo('int')
         rFloat = AutomataReservadaTipo('float')
@@ -29,6 +32,8 @@ class Controller:
 
         listaPalabras = [rString, rInt, rFloat, rDouble, rBooblean,
                          rFor, rWhile, rIf, rElse, rTrue, rFalse, aVariable]
+
+        # Ademas de los automaras de Simbolos y numeros
         cSimbolos = AutomataSimbolos()
         numeros = AutomataNumeros()
 
@@ -58,6 +63,7 @@ class Controller:
                 self.lecturas.append(nodoNumeros)
                 numeros.reiniciar()
 
+    # Evalua los resultados del reconocedor e identifica errores lexicos basicos
     def evaluador(self):
         automataEvaluador = AutomataLexico()
         nodoError = 0
@@ -73,6 +79,7 @@ class Controller:
             nodoError = len(self.lecturas)
         return nodoError, mensaje
 
+    # Devuelve la lista de lecturas en un String
     def getLecturas(self):
         retornador = ''
         for objeto in self.lecturas:

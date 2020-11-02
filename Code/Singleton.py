@@ -1,3 +1,4 @@
+# Decorador singleton
 def singleton(cls):
 
     instances = dict()
@@ -10,6 +11,7 @@ def singleton(cls):
 
     return wrap
 
+# Singleton que almacena los caracteres leidos por el programa
 @singleton
 class Simbols():
     def __init__(self):

@@ -2,6 +2,7 @@ from Code.AutomataInterface import AutomataInteface
 from Code.Singleton import Simbols
 
 
+# Automata que reconoce variables validas e invalidas
 class AutomataVariable(AutomataInteface):
 
     def __init__(self):
