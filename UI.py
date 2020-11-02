@@ -98,12 +98,12 @@ ventana.title('Automatador')
 ventana.config(background="#353535")
 
 # Entrada de texto
-mensaje = Label(ventana, text="Escoja un archivo *.java", fg="blue")
+mensaje = Label(ventana, text="Seleccione un archivo *.java", fg="blue")
 # posicion Etrada de texto
 mensaje.grid(row=0, column=0, columnspan=4, padx=5, pady=5)
 
 # Botones
-boton_archivo = Button(ventana, text='Escojer un archivo',
+boton_archivo = Button(ventana, text='Escoger un archivo',
                        width=15, height=2, command=browseFile)
 boton_proceso = Button(ventana, text='Iniciar automata',
                        width=15, height=2, command=analizador)

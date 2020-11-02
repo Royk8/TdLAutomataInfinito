@@ -2,6 +2,7 @@ from Code.Singleton import Simbols
 from Code.AutomataInterface import AutomataInteface
 
 
+# Automata que identifica las palabras reservadas no usadas en el codigo (For, If, etc)
 class AutomataReservada(AutomataInteface):
 
     def __init__(self, secuencia):

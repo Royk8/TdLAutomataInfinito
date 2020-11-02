@@ -1,3 +1,4 @@
+# Interfaz que debe ser implementada por los automatas de reconocimiento
 class AutomataInteface:
 
     def leerSimbolo(self, simbolo: str):
