@@ -1,5 +1,5 @@
 # TdLAutomataInfinito
-## Automatador - Compilador léxicográfico
+## Automatador - Compilador lexicográfico
 Creado por ***Juan Cardona*** y ***Roy Maestre***
 
 UdeA 2020-1
