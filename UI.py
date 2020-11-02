@@ -3,8 +3,6 @@ from tkinter import filedialog
 from tkinter import messagebox
 from Code.Controller import Controller
 from datetime import datetime
-import os
-
 
 dt_string = datetime.now().strftime("_%d_%m_%Y_%H_%M_%S")
 reg = open('./reg/reg'+str(dt_string)+'.txt', 'w')
