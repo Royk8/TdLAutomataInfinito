@@ -1,0 +1,10 @@
+String x = "pato", z ="gato";
+n = "Textodeejemplo;
+a = a+-b ;
+1My_nUmber_b -= b ;
+n += false(3-7*b) ;
+String b;
+int a , b , c ;
+float b = 2.7f;
+boolean c=True, d=false, x;
+Strin b = (a*5) && true;
