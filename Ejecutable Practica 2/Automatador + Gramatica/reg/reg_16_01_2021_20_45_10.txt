@@ -1,0 +1,16 @@
+RECONOCIMIENTO MEDIANTE AUTOMATA FINITO
+
+EL CODIGO CONTIENE ERRORES
+x = 25 ; 
+17 
+-ERROR: Se esperaba un Tipo, Variable o Estructura condicional, pero se recibió [int]-
+z = ( 37 * 10 ; 
+-ERROR: Parentesis Desbalanceados-
+if ( hola ) { y = 33 ; 
+} else { x = 15 ; 
+} 
+-ERROR: Se esperaba un punto y coma, pero se recibió [Cierra Llave]-
+String texto = " Habia una vez " ; 
+String otroTexto = " Tambien 
+-ERROR: Nunca se cierran las comillas
+float real = 56f ; 

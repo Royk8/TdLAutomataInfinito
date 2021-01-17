@@ -1,5 +1,5 @@
 String x = "pato", z ="gato";
-n = "Textodeejemplo;
+n = "Textodeejemplo";
 a = a+-b ;
 1My_nUmber_b -= b ;
 n += false(3-7*b) ;

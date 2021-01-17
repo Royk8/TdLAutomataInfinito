@@ -25,7 +25,9 @@ class AutomataReservada(AutomataInteface):
         return self.numeroEstados
 
     def getClase(self):
-        return "Reservada"
+        if self.secuencia == 'else':
+            return "Else"
+        return "Condicion"
 
     def isActivo(self):
         return not (self.estadoError or self.estados[-1])

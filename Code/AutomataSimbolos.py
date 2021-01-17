@@ -42,10 +42,7 @@ class AutomataSimbolos(AutomataInteface):
                     self.secuencia += "|"
                 elif simbolo == "&" and self.estado == "&":
                     self.secuencia += "&"
-                elif simbolo in "(":
-                    self.estadoSolapado = True
-                    self.primerSimbolo(simbolo)
-                elif simbolo == '"':
+                elif simbolo in ['(', '"', '{']:
                     self.estadoSolapado = True
                     self.primerSimbolo(simbolo)
                 else:
@@ -71,8 +68,12 @@ class AutomataSimbolos(AutomataInteface):
             self.estado = ";"
         elif simbolo in "(":
             self.estado = "("
+        elif simbolo == '{':
+            self.estado = '{'
         elif simbolo in ")":
             self.estado = ")"
+        elif simbolo in "}":
+            self.estado = "}"
         elif simbolo == '"':
             self.estado = '"'
         self.estadoLectura = True
@@ -115,8 +116,14 @@ class AutomataSimbolos(AutomataInteface):
             return "Operador Aritmetico"
         elif secuenciaAEntregar in ['++', '--']:
             return "Suma/Resta 1"
-        elif secuenciaAEntregar in '()':
-            return "Parentesis"
+        elif secuenciaAEntregar in '(':
+            return "Abre Parentesis"
+        elif secuenciaAEntregar in ')':
+            return "Cierra Parentesis"
+        elif secuenciaAEntregar in '{':
+            return "Abre Llave"
+        elif secuenciaAEntregar in '}':
+            return "Cierra Llave"
         elif secuenciaAEntregar == ';':
             return "Fin de linea"
         elif secuenciaAEntregar == simbolos.getComillas():

@@ -6,6 +6,7 @@ from Code.AutomataReservadaTipo import AutomataReservadaTipo
 from Code.AutomataReservadaBool import AutomataReservadaBool
 from Code.AutomataLexico import AutomataLexico
 from Code.Nodo import Nodo
+from Code.ReconocerdorRecursivo import ReconocedorRecursivo
 
 
 class Controller:
@@ -87,3 +88,18 @@ class Controller:
                 " | " + str(objeto.valor) + " ] "
         retornador += ("\n")
         return retornador
+
+#_______________________ PRACTICA 2 ________________________
+
+    def reconocerGramatica(self, nodosTexto):
+        recursivo = ReconocedorRecursivo(nodosTexto)
+        recursivo.principal()
+        return recursivo.codigoLeido
+
+# Metodo para corregir pequeño problema de reconocimiento de la practica anterior
+    def preprocesado(texto : str):
+        texto.replace('(',' ( ')
+        texto.replace('{', ' { ')
+        texto.replace('}', ' } ')
+        texto.replace(')', ' ) ')
+        return texto

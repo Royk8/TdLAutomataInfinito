@@ -24,7 +24,7 @@ class Simbols():
         self.logicos = ['==', '!=', '<=', '>=', '|', '||', '&', '&&']
         self.separadores = ','
         self.finLinea = ';'
-        self.simbolosSimples = '=+-*/%!<>|&,();"'
+        self.simbolosSimples = '=+-*/%!<>|&,(){};"'
         self.parentesis = ['()']
         self.comilla = '"'
 

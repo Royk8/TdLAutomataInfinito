@@ -14,10 +14,10 @@ class AutomataLexico:
                 self.funcionEstado = self.cambiarEstado(2)
             elif clase in ['int', 'double', 'float', 'boolean', 'String']:
                 self.funcionEstado = self.cambiarEstado(31)
-            elif clase == "Reservada":
+            elif clase == "Condicion":
                 self.funcionEstado = self.cambiarEstado(35)
             elif clase in ['Separador','Asignacion','Modificador',"Operador Logico",
-                           "Operador Aritmetico","Suma/Resta 1","Parentesis","Comillas"]:
+                           "Operador Aritmetico","Suma/Resta 1",'Abre Parentesis','Cierra Parentesis',"Comillas"]:
                 self.funcionEstado = self.cambiarEstado(32)
             elif clase == "Fin de linea":
                 self.funcionEstado = self.cambiarEstado(33)
@@ -29,11 +29,11 @@ class AutomataLexico:
             clase = nodo.clase
             if clase in ['Tipo','int', 'double', 'float', 'boolean', 'String', 'Separador', 'Asignacion',
                          'Modificador', 'Operador Logico', 'Operador Aritmetico', 'Suma/Resta 1',
-                         'Parentesis', 'Comillas', 'Fin de linea']:
+                         'Abre Parentesis', 'Cierra Parentesis', 'Comillas', 'Fin de linea']:
                 self.funcionEstado = self.cambiarEstado(34)
             elif clase == "Variable":
                 self.funcionEstado = self.cambiarEstado(3)
-            elif clase == "Reservada":
+            elif clase == "Condicion":
                 self.funcionEstado = self.cambiarEstado(35)
             elif clase == "Variable Invalida":
                 self.funcionEstado = self.cambiarEstado(40)
@@ -42,9 +42,9 @@ class AutomataLexico:
         def estado2(nodo: Nodo):
             clase = nodo.clase
             if clase in ['Tipo', 'Variable', 'int', 'double', 'float', 'boolean', 'String', 'Separador',
-                         'Operador Logico', 'Operador Aritmetico','Parentesis', 'Comillas', 'Fin de linea']:
+                         'Operador Logico', 'Operador Aritmetico','Abre Parentesis', 'Cierra Parentesis', 'Comillas', 'Fin de linea']:
                 self.funcionEstado = self.cambiarEstado(31)
-            elif clase == "Reservada":
+            elif clase == "Condicion":
                 self.funcionEstado = self.cambiarEstado(35)
             elif clase == "Asignacion":
                 self.funcionEstado = self.cambiarEstado(4)
@@ -59,9 +59,9 @@ class AutomataLexico:
         def estado3(nodo: Nodo):
             clase = nodo.clase
             if clase in ['Tipo', 'Variable', 'int', 'double', 'float', 'boolean', 'String',
-                         'Parentesis', 'Comillas']:
+                         'Abre Parentesis', 'Cierra Parentesis', 'Comillas']:
                 self.funcionEstado = self.cambiarEstado(31)
-            elif clase == "Reservada":
+            elif clase == "Condicion":
                 self.funcionEstado = self.cambiarEstado(35)
             elif clase == "Separador":
                 self.funcionEstado = self.cambiarEstado(7)
@@ -77,7 +77,7 @@ class AutomataLexico:
         # Estado para cuando se tiene una variable seguida de un igual
         def estado4(nodo: Nodo):
             clase = nodo.clase
-            if clase in ['Tipo','Reservada']:
+            if clase in ['Tipo','Condicion']:
                 self.funcionEstado = self.cambiarEstado(35)
             elif clase == 'Variable':
                 self.funcionEstado = self.cambiarEstado(9)
@@ -94,7 +94,7 @@ class AutomataLexico:
         # Estado para una variable seguida de un modificador +=, -=, *=...
         def estado5(nodo: Nodo):
             clase = nodo.clase
-            if clase in ['Tipo','Reservada']:
+            if clase in ['Tipo','Condicion']:
                 self.funcionEstado = self.cambiarEstado(35)
             elif clase == 'Variable':
                 self.funcionEstado = self.cambiarEstado(9)
@@ -111,9 +111,9 @@ class AutomataLexico:
         # Estado para una variable seguida de ++ o --
         def estado6(nodo: Nodo):
             clase = nodo.clase
-            if clase in ['Tipo', 'Variable', 'int', 'double', 'float', 'boolean', 'String', 'Reservada',
+            if clase in ['Tipo', 'Variable', 'int', 'double', 'float', 'boolean', 'String', 'Condicion',
                          'Separador', "Asignacion", 'Modificador', 'Operador Logico', 'Operador Aritmetico',
-                         'Suma/Resta 1', 'Parentesis', 'Comillas']:
+                         'Suma/Resta 1', 'Abre Parentesis', 'Cierra Parentesis', 'Comillas']:
                 self.funcionEstado = self.cambiarEstado(37)
             elif clase == 'Fin de linea':
                 self.funcionEstado = self.cambiarEstado(100)
@@ -121,13 +121,13 @@ class AutomataLexico:
         # Estado para la secuencia Tipo Variable,
         def estado7(nodo: Nodo):
             clase = nodo.clase
-            if clase in ['Tipo', 'Reservada']:
+            if clase in ['Tipo', 'Condicion']:
                 self.funcionEstado = self.cambiarEstado(35)
             elif clase == 'Variable':
                 self.funcionEstado = self.cambiarEstado(12)
             elif clase in ['int', 'double', 'float', 'boolean', 'String',
                          'Separador', "Asignacion", 'Modificador', 'Operador Logico', 'Operador Aritmetico',
-                         'Suma/Resta 1', 'Parentesis', 'Comillas', 'Fin de linea']:
+                         'Suma/Resta 1', 'Abre Parentesis', 'Cierra Parentesis', 'Comillas', 'Fin de linea']:
                 self.funcionEstado = self.cambiarEstado(34)
             elif clase == "Variable Invalida":
                 self.funcionEstado = self.cambiarEstado(40)
@@ -135,7 +135,7 @@ class AutomataLexico:
         # Estado para la secuencia Tipo Variable =
         def estado8(nodo: Nodo):
             clase = nodo.clase
-            if clase in ['Tipo', 'Reservada']:
+            if clase in ['Tipo', 'Condicion']:
                 self.funcionEstado = self.cambiarEstado(35)
             elif clase == 'Variable':
                 self.funcionEstado = self.cambiarEstado(13)
@@ -152,7 +152,7 @@ class AutomataLexico:
         # Estado para la secuencia Variable = Variable
         def estado9(nodo: Nodo):
             clase = nodo.clase
-            if clase in ['Tipo', 'Reservada']:
+            if clase in ['Tipo', 'Condicion']:
                 self.funcionEstado = self.cambiarEstado(35)
             elif clase in ['Variable','int', 'double', 'float', 'boolean', 'String', "Variable Invalida"]:
                 self.funcionEstado = self.cambiarEstado(37)
@@ -170,7 +170,7 @@ class AutomataLexico:
         # Estado para la secuencia Variable = dato (siendo dato un valor de cualquier tipo)
         def estado10(nodo: Nodo):
             clase = nodo.clase
-            if clase in ['Tipo', 'Reservada']:
+            if clase in ['Tipo', 'Condicion']:
                 self.funcionEstado = self.cambiarEstado(35)
             elif clase in ['Variable','int', 'double', 'float', 'boolean', 'String']:
                 self.funcionEstado = self.cambiarEstado(37)
@@ -197,9 +197,9 @@ class AutomataLexico:
         # Estado para la secuencia Tipo Variable, Variable
         def estado12(nodo: Nodo):
             clase = nodo.clase
-            if clase in ['Tipo', 'Reservada']:
+            if clase in ['Tipo', 'Condicion']:
                 self.funcionEstado = self.cambiarEstado(35)
-            elif clase in ['Variable', 'int', 'double', 'float', 'boolean', 'String', 'Comillas', 'Parentesis']:
+            elif clase in ['Variable', 'int', 'double', 'float', 'boolean', 'String', 'Comillas', 'Abre Parentesis', 'Cierra Parentesis']:
                 self.funcionEstado = self.cambiarEstado(31)
             elif clase == "Separador":
                 self.funcionEstado = self.cambiarEstado(7)
@@ -215,7 +215,7 @@ class AutomataLexico:
         # Estado para la secuencia Tipo Variable = Variable
         def estado13(nodo: Nodo):
             clase = nodo.clase
-            if clase in ['Tipo', 'Reservada']:
+            if clase in ['Tipo', 'Condicion']:
                 self.funcionEstado = self.cambiarEstado(35)
             elif clase in ['Variable', 'int', 'double', 'float', 'boolean', 'String']:
                 self.funcionEstado = self.cambiarEstado(37)
@@ -235,7 +235,7 @@ class AutomataLexico:
         # Estado para la secuencia Tipo Variable = dato
         def estado14(nodo: Nodo):
             clase = nodo.clase
-            if clase in ['Tipo', 'Reservada']:
+            if clase in ['Tipo', 'Condicion']:
                 self.funcionEstado = self.cambiarEstado(35)
             elif clase in ['Variable', 'int', 'double', 'float', 'boolean', 'String']:
                 self.funcionEstado = self.cambiarEstado(37)
@@ -262,7 +262,7 @@ class AutomataLexico:
         # Estado para secuencia Variable = Variable Operador (logico o aritmetico)
         def estado16(nodo: Nodo):
             clase = nodo.clase
-            if clase in ['Tipo', 'Reservada']:
+            if clase in ['Tipo', 'Condicion']:
                 self.funcionEstado = self.cambiarEstado(35)
             elif clase == 'Variable':
                 self.funcionEstado = self.cambiarEstado(9)
@@ -280,9 +280,9 @@ class AutomataLexico:
         # Estado para secuencia Variable = Variable ++ o --
         def estado17(nodo: Nodo):
             clase = nodo.clase
-            if clase in ['Tipo', 'Variable', 'int', 'double', 'float', 'boolean', 'String', 'Reservada',
+            if clase in ['Tipo', 'Variable', 'int', 'double', 'float', 'boolean', 'String', 'Condicion',
                          'Separador', "Asignacion", 'Modificador', 'Operador Logico', 'Operador Aritmetico',
-                         'Suma/Resta 1', 'Parentesis', 'Comillas']:
+                         'Suma/Resta 1', 'Abre Parentesis', 'Cierra Parentesis', 'Comillas']:
                 self.funcionEstado = self.cambiarEstado(37)
             elif clase == 'Fin de linea':
                 self.funcionEstado = self.cambiarEstado(100)
@@ -291,7 +291,7 @@ class AutomataLexico:
         def estado18(nodo: Nodo):
             clase = nodo.clase
             self.quotation = False
-            if clase in ['Tipo', 'Reservada']:
+            if clase in ['Tipo', 'Condicion']:
                 self.funcionEstado = self.cambiarEstado(35)
             elif clase in ['Variable', 'int', 'double', 'float', 'boolean', 'String']:
                 self.funcionEstado = self.cambiarEstado(37)
@@ -309,7 +309,7 @@ class AutomataLexico:
         # Estado para la secuencia Tipo Variable = Variable Operador (logico o aritmetico)
         def estado19(nodo: Nodo):
             clase = nodo.clase
-            if clase in ['Tipo', 'Reservada']:
+            if clase in ['Tipo', 'Condicion']:
                 self.funcionEstado = self.cambiarEstado(35)
             elif clase == 'Variable':
                 self.funcionEstado = self.cambiarEstado(13)
@@ -326,9 +326,9 @@ class AutomataLexico:
         # Estado para la secuencia Tipo Variable = Variable ++
         def estado20(nodo: Nodo):
             clase = nodo.clase
-            if clase in ['Tipo', 'Variable', 'int', 'double', 'float', 'boolean', 'String', 'Reservada',
+            if clase in ['Tipo', 'Variable', 'int', 'double', 'float', 'boolean', 'String', 'Condicion',
                          'Separador', "Asignacion", 'Modificador', 'Operador Logico', 'Operador Aritmetico',
-                         'Suma/Resta 1', 'Parentesis', 'Comillas']:
+                         'Suma/Resta 1', 'Abre Parentesis', 'Cierra Parentesis', 'Comillas']:
                 self.funcionEstado = self.cambiarEstado(37)
             elif clase == 'Fin de linea':
                 self.funcionEstado = self.cambiarEstado(100)
@@ -337,7 +337,7 @@ class AutomataLexico:
         def estado21(nodo: Nodo):
             clase = nodo.clase
             self.quotation = False
-            if clase in ['Tipo', 'Reservada']:
+            if clase in ['Tipo', 'Condicion']:
                 self.funcionEstado = self.cambiarEstado(35)
             elif clase in ['Variable', 'int', 'double', 'float', 'boolean', 'String']:
                 self.funcionEstado = self.cambiarEstado(37)

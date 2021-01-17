@@ -2,12 +2,13 @@ from tkinter import *
 from tkinter import filedialog
 from tkinter import messagebox
 from Code.Controller import Controller
+from Code.Nodo import Nodo
 from datetime import datetime
 
 ## Welcome to the Automatador
 # Por Juan Cardona Y Roy Maestre
 # 2020 - 1 Teoria de Lenguajes
-# Vale por bono para el parcial
+# Juan Cardona is no more. Él canceló la materia.
 
 dt_string = datetime.now().strftime("_%d_%m_%Y_%H_%M_%S")
 reg = open('./reg/reg'+str(dt_string)+'.txt', 'w')
@@ -42,6 +43,7 @@ def analizador():
         contador = 0
         for line in text:
             controlador = Controller()
+            line = Controller.preprocesado(line)
             controlador.reconocedor(line)
             for nodo in controlador.lecturas:
                 text2 += "[" + str(nodo.clase) + " | " + \
@@ -65,6 +67,7 @@ def analizador():
         text2 = text2.split('\n')
         lbox2.delete(0, 'end')
 
+        reg.write('RECONOCIMIENTO DE SIMBOLOS\n\n')
         for i in range(len(text2)):
             lbox2.insert(i+1, str(i+1)+'  '+text2[i])
             reg.write(str(i+1)+'  '+text2[i]+'\n')
@@ -72,6 +75,7 @@ def analizador():
         reg.write('\n')
         lbox3.delete(0, 'end')
 
+        reg.write('RECONOCIMIENTO MEDIANTE AUTOMATA FINITO\n\n')
         for i in range(len(text3)):
             lbox3.insert(i+1, '  '+text3[i])
             reg.write(str(i+1)+'  '+text3[i]+'\n')
@@ -80,6 +84,24 @@ def analizador():
     except:
         messagebox.showinfo("Error", "No selecciono ningun archivo")
 
+
+def gramatica():
+    try:
+        nodosTexto = []
+        for line in text:
+            controlador = Controller()
+            controlador.reconocedor(line)
+            for nodo in controlador.lecturas:
+                nodosTexto.append(nodo)
+        fin = Nodo('Fin de Secuencia','')
+        nodosTexto.append(fin)
+        controlador = Controller()
+        imprimir = controlador.reconocerGramatica(nodosTexto)
+        lbox4.insert(INSERT, imprimir)
+        reg.write('RECONOCIMIENTO MEDIANTE AUTOMATA FINITO\n\n')
+        reg.write(imprimir)
+    except:
+        messagebox.showinfo("Error", "No selecciono ningun archivo")
 
 def getReg():
     try:
@@ -105,24 +127,29 @@ mensaje.grid(row=0, column=0, columnspan=4, padx=5, pady=5)
 # Botones
 boton_archivo = Button(ventana, text='Escoger un archivo',
                        width=15, height=2, command=browseFile)
-boton_proceso = Button(ventana, text='Iniciar automata',
+boton_proceso = Button(ventana, text='Automata Finito',
                        width=15, height=2, command=analizador)
 boton_reg = Button(ventana, text='Generar registro y salir',
                    width=18, height=2, command=getReg)
+boton_gramatica = Button(ventana, text='Gramatica',
+                   width=18, height=2, command=gramatica)
 
 # Posición de botones
 boton_archivo.grid(row=1, column=0, padx=7, pady=5)
 boton_proceso.grid(row=1, column=1, padx=5, pady=5)
-boton_reg.grid(row=1, column=2, padx=5, pady=5)
+boton_reg.grid(row=2, column=2, padx=5, pady=5)
+boton_gramatica.grid(row=1, column=2, padx=5, pady=5)
 
 # Cajor que muestra
 lbox = Listbox(ventana, height=11, width=80)
 lbox2 = Listbox(ventana, height=13, width=180)
 lbox3 = Listbox(ventana, height=13, width=180)
+lbox4 = Text(ventana, height=13, width=135)
 
 # Posición de cajon
 lbox.grid(row=2, column=1)
 lbox2.grid(row=3, column=0, columnspan=3)
 lbox3.grid(row=4, column=0, columnspan=3)
+lbox4.grid(row=5, column=0, columnspan=3)
 
 ventana.mainloop()
